@@ -1,11 +1,13 @@
 package lesson_15.homework;
 
+import lesson_15.homework.exceptions.WrongOperationException;
+
 public class Account {
     private String id;
-    private int balance;
+    private double balance;
     private String currency;
 
-    public Account(String id, int balance, String currency) {
+    public Account(String id, double balance, String currency) {
         this.id = id;
         this.balance = balance;
         this.currency = currency;
@@ -15,31 +17,19 @@ public class Account {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getBalance() {
+    public double getBalance() {
         return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id='" + id + '\'' +
-                ", balance=" + balance +
-                '}';
+    public void withdraw(double amount) throws WrongOperationException {
+        if (balance >= amount) {
+            balance -= amount;
+        } else {
+            throw new WrongOperationException("Insufficient funds");
+        }
     }
 }
